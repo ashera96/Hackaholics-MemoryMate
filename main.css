@@ -1,0 +1,20 @@
+body {
+    text-align: center;
+}
+
+div {
+    margin-bottom: 8px;
+}
+
+button {
+    height: 48px;
+    width: 80px;
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+video {
+    width: 240px;
+    height: 180px;
+    transform: scaleX(-1); /* Mirror */
+}

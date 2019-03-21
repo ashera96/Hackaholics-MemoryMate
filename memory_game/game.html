@@ -1,0 +1,126 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+
+<title>A jQuery Drag-and-Drop Number Cards Game</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="./style.css">
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript">
+
+var correctCards = 0;
+$( init );
+
+function init() {
+
+  // Hide the success message
+  $('#successMessage').hide();
+  $('#successMessage').css( {
+    left: '580px',
+    top: '250px',
+    width: 0,
+    height: 0
+  } );
+
+  // Reset the game
+  correctCards = 0;
+  $('#cardPile').html( '' );
+  $('#cardSlots').html( '' );
+
+  // Create the pile of shuffled cards
+  var numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+  numbers.sort( function() { return Math.random() - .5 } );
+
+  for ( var i=0; i<10; i++ ) {
+    $('<div>' + numbers[i] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+      containment: '#content',
+      stack: '#cardPile div',
+      cursor: 'move',
+      revert: true
+    } );
+  }
+
+  // Create the card slots
+  var words = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' ];
+  for ( var i=1; i<=10; i++ ) {
+    $('<div>' + words[i-1] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );
+  }
+
+}
+
+function handleCardDrop( event, ui ) {
+  var slotNumber = $(this).data( 'number' );
+  var cardNumber = ui.draggable.data( 'number' );
+
+  // If the card was dropped to the correct slot,
+  // change the card colour, position it directly
+  // on top of the slot, and prevent it being dragged
+  // again
+
+  if ( slotNumber == cardNumber ) {
+    ui.draggable.addClass( 'correct' );
+    ui.draggable.draggable( 'disable' );
+    $(this).droppable( 'disable' );
+    ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+    ui.draggable.draggable( 'option', 'revert', false );
+    correctCards++;
+  } 
+  
+  // If all the cards have been placed correctly then display a message
+  // and reset the cards for another go
+
+  if ( correctCards == 10 ) {
+    $('#successMessage').show();
+    $('#successMessage').animate( {
+      left: '50px',
+      top: '300px',
+      width: '200px',
+      height: '100px',
+      opacity: 1
+    } );
+  }
+
+
+}
+
+</script>
+
+</head>
+<body style="background-color: #1F253D">
+<h2 style="text-align: center;margin-bottom: -50px;color: white">SWITCH</h2>
+<div id="content" >
+
+    <div class="col-sm-6 bg-dark" style="float: left;margin-left: -50px">
+      <div id="cardPile" style="color:#666"></div>
+    </div>
+    <div class="col-sm-6" style="float: right; margin-top: -48px; margin-left: -50px;margin-right: -50px">
+      <div id="cardSlots"> </div>
+    </div>
+
+
+
+  <div id="successMessage">
+    <h2>You did it!</h2>
+    <button onclick="init()">Play Again</button>
+  </div>
+
+
+</div>
+<script>
+    setTimeout(function() { hideNow(); }, 5000);
+    function hideNow(){
+        $('#cardPile').css("text-indent","-9999px");
+    }
+</script>
+</body>
+</html>
+

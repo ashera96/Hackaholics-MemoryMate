@@ -1,29 +1,57 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="main.js"></script>
-  </head>
-  <body class="bg-light">
-    <div class="container">
-      <button class="btn btn-primary btn-block my-5">Say</button>
-      <input class="form-control" type="text" id="t1" /><br />
-      <p class="form-control bg-secondary text-white" id="p1"></p>
-      <br />
-      <br />
-      <div>
-        <button id="toggle">Start</button>
-      </div>
-      <video id="video" autoplay></video>
-    </div>
-  </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>login</title>
+
+    <!--Style Sheets start-->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/logincss.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="./css/webfonts.css" rel="stylesheet">
+    <!--Style sheets end-->
+
+    <!--scrpts start-->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/scripts.js"></script>
+    <!--scrpts end-->
+
+</head>
+
+<body>
+<div class="col-md-4 login-sec">
+    <h2 class="text-center">Login</h2>
+    <!--Form to gather the login details of the user start-->
+    <form class="login-form text-center" >
+        <div class="form-group">
+            <br>
+            <input type="text" class="form-control" style="border-radius: 20px;width:300px ; margin-left: 11px" placeholder="Email" id="email">
+        </div>
+        <div class="form-group">
+            <br>
+            <input type="password" style="border-radius: 20px;width:300px;  margin-left: 11px" class="form-control" placeholder="Password" id="password">
+        </div>
+
+        <div class="form-check">
+            Don't have an account? <a href="./pages/register.html"><span style="color: #299AFB">Register</span></a>
+        </div>
+        <div class="text-center">
+            <br>
+            <button type="button" class="btn btn-login" onclick="login()">Login</button>
+        </div>
+    </form>
+    <!--Form to gather the login details of the user end-->
+</div>
+
+
+<!-- javascript file linking -->
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/auth.js"></script>
+
+</body>
 </html>

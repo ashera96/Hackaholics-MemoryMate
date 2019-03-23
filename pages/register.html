@@ -16,8 +16,7 @@
     <!--Style sheets end-->
 
     <!--scrpts start-->
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    
 </head>
 
 <body>
@@ -28,42 +27,132 @@
     <form class="login-form">
         <div class="form-group">
 
-            <label  class="text-uppercase" style="margin-left: 15px">Email</label>
+<!--             <label  class="text-uppercase" style="margin-left: 15px">Email</label> -->
+
+            <br>
             <input type="text" class="form-control" style="border-radius: 20px;width:300px ; margin-left: 15px" placeholder="Email" id="email">
 
 
         </div>
         <div class="form-group">
-            <label  class="text-uppercase" style="margin-left: 15px">Password</label>
+<!--             <label  class="text-uppercase" style="margin-left: 15px">Password</label> -->
 
-            <input type="password" class="form-control" style="border-radius: 20px;width:300px ; margin-left: 15px" placeholder="password" id="password">
+            <br>
+            <input type="password" class="form-control" style="border-radius: 20px;width:300px ; margin-left: 15px" placeholder="Password" id="password">
 
         </div>
 
         <div class="form-group">
-                <label  class="text-uppercase" style="margin-left: 15px">Confirm Password</label>
-    
-                <input type="password" class="form-control" style="border-radius: 20px;width:300px ; margin-left: 15px" placeholder="confirm password" id="password2">
+<!--                 <label  class="text-uppercase" style="margin-left: 15px">Confirm Password</label> -->
+
+                <br>
+                <input type="password" class="form-control" style="border-radius: 20px;width:300px ; margin-left: 15px" placeholder="Confirm Password" id="password2">
     
             </div>
         <div class="form-check" class= "text-center">
-            Already have an account?<a href="../index.html">Login</a>
+            Already have an account? <a href="../index.html">Login</a>
         </div>
         <div class= "text-center">
             <br>
-            <button type="button" class="btn btn-login" onclick="register()">Register</button>
+            <button class="btn btn-login" onclick="register()">Register</button>
         </div>
 
     </form>
     <!--Form to gather the login details of the user end-->
 </div>
 
-
-
 <!-- javascript file linking -->
-<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
-<script src="../js/config.js"></script>
-<script src="../js/auth.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+<script type="text/javascript">
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBElcSBIqe2koIyB6pD9aAFglAq82Fu90c",
+    authDomain: "hackaholics-memorymate.firebaseapp.com",
+    databaseURL: "https://hackaholics-memorymate.firebaseio.com",
+    projectId: "hackaholics-memorymate",
+    storageBucket: "hackaholics-memorymate.appspot.com",
+    messagingSenderId: "618931079152"
+  };
+  firebase.initializeApp(config);
+  // firebase.firestore(app);
 
+// Function to register the user start
+var register = function() {
+
+    var email = document.getElementById("email");
+    var password = document.getElementById("password");
+
+
+    if(ValidateEmail(email) & checkPasswordLength(password)) {
+        alert("Hi");
+
+        firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function() {
+          alert("Registered Successfully");
+          window.location.href = './app.html';
+        }).catch(function(error) {
+          // Handle Errors here.
+          alert('n');
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+        });
+
+    }
+}
+// Function to register the user end
+
+// Function to authenticate the user credentials start
+var login = function() {
+
+    var email = document.getElementById("email");
+    var password = document.getElementById("password");
+    
+    firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function() {
+        
+        alert("Login Success.");
+        // redirect to app page
+        window.location.href = "./pages/app.html";
+
+    }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        alert("Login failed\n" + errorMessage);
+        // ...
+    });
+}
+// Function to authenticate the user credentials end
+
+
+
+function checkPasswordLength(inputtxt) {
+    var field = inputtxt.value;
+    if(field.length < 6)
+    {
+        alert("Password length is not enough.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function ValidateEmail(inputText) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(!inputText.value.match(mailformat))
+    {
+        alert("You have entered an invalid email address!");
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+</script>
+<!-- <script src="../js/config.js"></script> -->
+<!-- <script src="../js/auth.js"></script>
+ -->
 </body>
 </html>

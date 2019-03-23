@@ -50,8 +50,39 @@
 
 <!-- javascript file linking -->
 <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
-<script src="./js/config.js"></script>
-<script src="./js/auth.js"></script>
+<!-- <script src="./js/config.js"></script> -->
+<script type="text/javascript">
+    
+    var config = {
+        apiKey: "AIzaSyBElcSBIqe2koIyB6pD9aAFglAq82Fu90c",
+        authDomain: "hackaholics-memorymate.firebaseapp.com",
+        databaseURL: "https://hackaholics-memorymate.firebaseio.com",
+        projectId: "hackaholics-memorymate",
+        storageBucket: "hackaholics-memorymate.appspot.com",
+        messagingSenderId: "618931079152"
+    };
+    firebase.initializeApp(config);
+    var login = function() {
+
+        var email = document.getElementById("email");
+        var password = document.getElementById("password");
+        
+        firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(function() {
+            
+            alert("Login Success.");
+            // redirect to app page
+            window.location.href = "./pages/app.html";
+
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert("Login failed\n" + errorMessage);
+            // ...
+        });
+    }
+</script>
+<!-- <script src="./js/auth.js"></script> -->
 
 </body>
 </html>
